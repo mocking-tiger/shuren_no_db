@@ -9,7 +9,7 @@ export default function Home() {
       <h2 className="text-[20px] md:text-[40px] 2xl:text-[80px] text-center font-yuji">
         形容詞
       </h2>
-      <h3 className="text-[20px] 2xl:text-[40px] text-center">
+      <h3 className="text-[20px] 2xl:text-[40px] text-center font-gowun">
         일본어 형용사 학습
       </h3>
       <div

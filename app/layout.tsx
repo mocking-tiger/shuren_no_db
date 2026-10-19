@@ -44,7 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${yujiSyuku.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${yujiSyuku.variable} ${gowunBatang.variable} ${shipporiMincho.variable} h-full antialiased`}
     >
       <body>
         <div className="bg-[url('/images/bg/shoji.jpg')] bg-cover bg-center flex items-center justify-center">
