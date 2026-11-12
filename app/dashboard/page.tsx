@@ -1,4 +1,9 @@
+"use client";
+
 import GradeBox from "./components/GradeBox";
+import LoadingComponent from "../components/ui/Loading";
+import { useEffect, useState } from "react";
+import { UserProgress } from "@/types/types";
 
 const bgConfigs = [
     { url: "/images/bg/sprout.jpg", positionClass: "bg-center" },
@@ -13,6 +18,23 @@ const bgConfigs = [
 ];
 
 const DashboardPage = () => {
+    const [userProgress, setUserProgress] = useState<UserProgress | null>(null);
+
+    useEffect(() => {
+        const localStorageData = localStorage.getItem("userProgress");
+        if (localStorageData) {
+            setUserProgress(JSON.parse(localStorageData));
+        } else {
+            localStorage.setItem("userProgress", JSON.stringify({
+                currentGrade: 9,
+                exp: 0,
+                isMaster: false
+            }));
+        }
+    }, []);
+
+    if (!userProgress) return <LoadingComponent />;
+
     return (
         <div className="px-4 md:px-32  2xl:w-[80%] 2xl:mx-auto py-4 md:py-16 flex flex-col gap-4 overflow-y-auto">
             {Array.from({ length: 9 }).map((_, index) => (
@@ -21,7 +43,7 @@ const DashboardPage = () => {
                     grade={9 - index}
                     bg={bgConfigs[index].url}
                     positionClass={bgConfigs[index].positionClass}
-                    isLocked={false}
+                    isLocked={9 - index < userProgress.currentGrade}
                 />
             ))}
         </div>
