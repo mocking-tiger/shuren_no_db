@@ -2,8 +2,7 @@
 
 import GradeBox from "./components/GradeBox";
 import LoadingComponent from "../components/ui/Loading";
-import { useEffect, useState } from "react";
-import { UserProgress } from "@/types/types";
+import { useUserProgress } from "@/hooks/use-user-progress";
 
 const bgConfigs = [
     { url: "/images/bg/sprout.jpg", positionClass: "bg-center" },
@@ -18,20 +17,7 @@ const bgConfigs = [
 ];
 
 const DashboardPage = () => {
-    const [userProgress, setUserProgress] = useState<UserProgress | null>(null);
-
-    useEffect(() => {
-        const localStorageData = localStorage.getItem("userProgress");
-        if (localStorageData) {
-            setUserProgress(JSON.parse(localStorageData));
-        } else {
-            localStorage.setItem("userProgress", JSON.stringify({
-                currentGrade: 9,
-                exp: 0,
-                isMaster: false
-            }));
-        }
-    }, []);
+    const { userProgress } = useUserProgress();
 
     if (!userProgress) return <LoadingComponent />;
 
