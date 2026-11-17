@@ -1,4 +1,4 @@
-export const runTTS = (kana: string, speed: number = 0.3) => {
+export const runTTS = (kana: string, speed: number = 1) => {
     // Web Speech API 사용
     const utterance = new SpeechSynthesisUtterance(kana);
     utterance.lang = "ja-JP"; // 일본어 설정
