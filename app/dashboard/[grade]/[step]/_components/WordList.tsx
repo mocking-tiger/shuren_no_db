@@ -73,19 +73,6 @@ const WordList = ({ words }: { words: Word[] }) => {
         </div>
 
         {/* 음성 재생 버튼 */}
-        {/* <div
-          className="w-8 h-8 md:w-10 md:h-10 absolute top-6 right-6 cursor-pointer hover:scale-120 transition-all duration-300"
-          onClick={(e) => {
-            e.stopPropagation();
-            runTTS(words[currentIndex].wordKana);
-          }}
-        >
-          <img
-            src="/images/icon/speaker.svg"
-            alt="speaker"
-            className="w-10 h-10"
-          />
-        </div> */}
         <Speaker text={words[currentIndex].wordKana} />
 
         <h1
@@ -110,15 +97,6 @@ const WordList = ({ words }: { words: Word[] }) => {
               <div className="text-xl xl:text-4xl">
                 {words[currentIndex].example}
               </div>
-              {/* <img
-                src="/images/icon/speaker.svg"
-                alt="speaker"
-                className="md:w-10 md:h-10 w-6 h-6 absolute top-0 right-0 md:right-6"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  runTTS(words[currentIndex].exampleKana);
-                }}
-              /> */}
               <Speaker text={words[currentIndex].exampleKana} />
             </div>
 
