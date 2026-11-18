@@ -9,6 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 // import { useQueryClient } from "@tanstack/react-query";
 import { runTTS } from "@/utils/run-tts";
 import { Word } from "@/types/types";
+import Speaker from "@/app/components/ui/Speaker";
 
 const WordList = ({ words }: { words: Word[] }) => {
   const router = useRouter();
@@ -72,8 +73,8 @@ const WordList = ({ words }: { words: Word[] }) => {
         </div>
 
         {/* 음성 재생 버튼 */}
-        <div
-          className="w-8 h-8 md:w-10 md:h-10 absolute top-6 right-6 cursor-pointer hover:scale-110 transition-all duration-300"
+        {/* <div
+          className="w-8 h-8 md:w-10 md:h-10 absolute top-6 right-6 cursor-pointer hover:scale-120 transition-all duration-300"
           onClick={(e) => {
             e.stopPropagation();
             runTTS(words[currentIndex].wordKana);
@@ -84,12 +85,13 @@ const WordList = ({ words }: { words: Word[] }) => {
             alt="speaker"
             className="w-10 h-10"
           />
-        </div>
+        </div> */}
+        <Speaker text={words[currentIndex].wordKana} />
 
         <h1
           className={`font-bold ${isToggled
-              ? "mb-10 text-4xl md:text-[60px] relative bottom-[100px] md:bottom-[160px]"
-              : "text-4xl md:text-[60px] xl:text-[80px]"
+            ? "mb-10 text-4xl md:text-[60px] relative bottom-[100px] md:bottom-[160px]"
+            : "text-4xl md:text-[60px] xl:text-[80px]"
             }`}
         >
           {words[currentIndex].word}
@@ -108,15 +110,16 @@ const WordList = ({ words }: { words: Word[] }) => {
               <div className="text-xl xl:text-4xl">
                 {words[currentIndex].example}
               </div>
-              <img
+              {/* <img
                 src="/images/icon/speaker.svg"
                 alt="speaker"
                 className="md:w-10 md:h-10 w-6 h-6 absolute top-0 right-0 md:right-6"
                 onClick={(e) => {
                   e.stopPropagation();
-                  runTTS(words[currentIndex].exampleKana, 0.5);
+                  runTTS(words[currentIndex].exampleKana);
                 }}
-              />
+              /> */}
+              <Speaker text={words[currentIndex].exampleKana} />
             </div>
 
             <div className="text-xl md:text-2xl font-gowun">
