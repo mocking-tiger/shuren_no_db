@@ -2,14 +2,11 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Button from "@/app/components/ui/Button";
+import Speaker from "@/app/components/ui/Speaker";
 import LoadingComponent from "@/app/components/ui/Loading";
 import { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-// import { upsertUserExamData } from "@/lib/api/exam-api";
-// import { useQueryClient } from "@tanstack/react-query";
-import { runTTS } from "@/utils/run-tts";
 import { Word } from "@/types/types";
-import Speaker from "@/app/components/ui/Speaker";
+import { useParams, useRouter } from "next/navigation";
 
 const WordList = ({ words }: { words: Word[] }) => {
   const router = useRouter();
@@ -30,14 +27,7 @@ const WordList = ({ words }: { words: Word[] }) => {
   };
 
   const handleExamClick = () => {
-    // upsertUserExamData({
-    //   grade: Number(grade),
-    //   step: Number(step),
-    //   isPromotion: false,
-    // });
-    // queryClient.invalidateQueries({ queryKey: ["examData"] });
-
-    // router.push("/dashboard/exam");
+    router.push(`/dashboard/${grade}/${step}/exam`);
   };
 
   if (!words.length) return <LoadingComponent />;

@@ -1,6 +1,6 @@
 "use client";
 
-import GradeBox from "./components/GradeBox";
+import GradeBox from "./_components/GradeBox";
 import LoadingComponent from "../components/ui/Loading";
 import { useUserProgress } from "@/hooks/use-user-progress";
 

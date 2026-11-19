@@ -2,45 +2,27 @@
 
 import LoadingComponent from "@/app/components/ui/Loading";
 import WordListForExam from "./_components/WordListForExam";
-import { Word } from "@prisma/client";
+import { shuffle } from "@/utils/shuffle";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { useWords } from "@/hooks/use-words";
 import { WordWithChoice } from "@/types/types";
-import { useQuery } from "@tanstack/react-query";
-import { shuffle } from "@/lib/utils/exam-utils";
 import { useMeanings } from "@/hooks/use-meanings";
-import { getUserExamData } from "@/lib/api/exam-api";
-import { fetchWordsAtExam } from "@/lib/api/word-api";
+import { useUserProgress } from "@/hooks/use-user-progress";
 
 const ExamPage = () => {
-  const { data: meanings } = useMeanings();
-  const { data: examData, isFetching } = useQuery({
-    queryKey: ["examData"],
-    queryFn: getUserExamData,
-  });
-  const [words, setWords] = useState<Word[]>([]);
-  const [examWords, setExamWords] = useState<Word[]>([]);
-
-  // 출제 단어 목록 가져오기
-  useEffect(() => {
-    if (!examData) return;
-
-    const getWords = async () => {
-      const response = await fetchWordsAtExam(
-        examData.grade,
-        examData.step,
-        examData.isPromotion,
-      );
-      setWords(response);
-    };
-    getWords();
-  }, [examData]);
+  const { meanings } = useMeanings();
+  const { grade, step } = useParams();
+  const { userProgress } = useUserProgress();
+  const { words } = useWords(Number(grade), Number(step));
+  const [examWords, setExamWords] = useState<WordWithChoice[]>([]);
 
   // 시험용 배열로 가공
   useEffect(() => {
-    if (!words.length || !meanings?.length || !examData) return;
+    if (!words.length || !meanings?.length || !userProgress) return;
 
     const handleSetWordsForExam = () => {
-      if (examData.isPromotion) {
+      if (userProgress.isPromotion) {
         const newExamWords = words
           .map((word) => ({
             ...word,
@@ -68,16 +50,16 @@ const ExamPage = () => {
       }
     };
     handleSetWordsForExam();
-  }, [words, meanings, examData]);
+  }, [words, meanings]);
 
-  if (!examData || isFetching) return <LoadingComponent />;
+  if (!words.length) return <LoadingComponent />;
 
-  console.log("exam/page", examData);
+  console.log("examWords", examWords);
+
   return (
     <div className="h-[calc(100vh-64px)] flex justify-center items-center">
       <WordListForExam
-        words={shuffle(examWords as WordWithChoice[])}
-        examData={examData}
+        words={shuffle(examWords) as WordWithChoice[]}
       />
     </div>
   );
