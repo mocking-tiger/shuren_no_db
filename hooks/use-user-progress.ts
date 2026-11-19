@@ -12,7 +12,8 @@ export const useUserProgress = () => {
             const defaultProgress: UserProgress = {
                 currentGrade: 9,
                 exp: 0,
-                isMaster: false
+                isMaster: false,
+                isPromotion: false
             };
             setUserProgress(defaultProgress);
             localStorage.setItem("userProgress", JSON.stringify(defaultProgress));

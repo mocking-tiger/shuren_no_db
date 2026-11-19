@@ -10,6 +10,7 @@ export type UserProgress = {
     currentGrade: number;
     exp: number;
     isMaster: boolean;
+    isPromotion: boolean;
 }
 
 export type Word = {
@@ -22,4 +23,8 @@ export type Word = {
     exampleKana: string;
     exampleMeaning: string;
     level: Level;
+}
+
+export interface WordWithChoice extends Word {
+    choice: string[];
 }
