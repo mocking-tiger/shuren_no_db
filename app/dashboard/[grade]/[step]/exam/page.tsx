@@ -54,8 +54,6 @@ const ExamPage = () => {
 
   if (!words.length) return <LoadingComponent />;
 
-  console.log("examWords", examWords);
-
   return (
     <div className="h-[calc(100vh-64px)] flex justify-center items-center">
       <WordListForExam
